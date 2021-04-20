@@ -12,14 +12,17 @@
 •	Должны быть выведены все возможные комбинации. */
 
 public class Main {
-
     public static void main(String[] args) {
-        String a = "Мама", b = "Мыла", c = "Раму";
-        System.out.println(a + b + c);
-        System.out.println(a + c + b);
-        System.out.println(b + a + c);
-        System.out.println(b + c + a);
-        System.out.println(c + a + b);
-        System.out.println(c + b + a);
+        String[] array = {"Мама", "Мыла", "Раму"};
+
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array.length; j++){
+                for (int k = 0; k < array.length; k++) {
+                    if (i != j)
+                        if (i != k)
+                            if(j != k) System.out.println(array[i] + array[j] + array[k]);
+                }
+            }
+        }
     }
 }
