@@ -30,6 +30,7 @@ public class Main {
                 else if(i==10){
                     String ip = proxy.split(":")[0];
                     String port=proxy.split(":")[1];
+                    //Способ 3
 //                    Thread thread = new Thread(new Runnable() {
 //                        @Override
 //                        public void run() {
@@ -38,10 +39,10 @@ public class Main {
 //                    });
 //                    thread.start();
                     //Способ 1
-                    MyThread myThread = new MyThread(checkProxy(ip,Integer.parseInt(port)));
+                    MyThread myThread = new MyThread(ip,Integer.parseInt(port));
                     myThread.start();
                     //Способ 2
-                    Thread myRunnableThread = new Thread(new MyRunnableThread(checkProxy(ip,Integer.parseInt(port))));
+                    Thread myRunnableThread = new Thread(new MyRunnableThread(ip,Integer.parseInt(port)));
                     myRunnableThread.start();
                     proxy ="";
                 }else if(i != 9){
@@ -75,6 +76,7 @@ public class Main {
             while ((rc = reader.read()) != -1){
                 sb.append((char)rc);
             }
+
             return "IP: "+ip+":"+port+ANSI_GREEN+" работает"+ANSI_RESET;
         } catch (Exception e) {
             return "IP: "+ip+":"+port+ANSI_RED+" не работает"+ANSI_RESET;
@@ -83,30 +85,35 @@ public class Main {
 
 }
 class MyRunnableThread implements Runnable{
-    private Object checkProxy;
+    private String ip;
+    private int port;
 
-    public MyRunnableThread(Object checkProxy) {
+    public MyRunnableThread(String ip, int port) {
         super();
-        this.checkProxy = checkProxy;
+        this.ip = ip;
+        this.port = port;
     }
     @Override
     public void run() {
-        System.out.println(checkProxy);
+        System.out.println(Main.checkProxy(ip, port));
     }
 
 }
 
 
 class MyThread extends Thread{
-    private Object checkProxy;
+    private String ip;
+    private int port;
 
-    public MyThread(Object checkProxy) {
+    public MyThread(String ip, int port) {
         super();
-        this.checkProxy = checkProxy;
+
+        this.ip = ip;
+        this.port = port;
     }
 
     @Override
     public void run(){
-        System.out.println(checkProxy);
+        System.out.println(Main.checkProxy(ip, port));
     }
 }
